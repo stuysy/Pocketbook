@@ -2,9 +2,10 @@ package com.example.ysy.pocketbook;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Record {
+public class Record implements Serializable {
     public static String TAG = "Record";
 
     public enum RecordType{

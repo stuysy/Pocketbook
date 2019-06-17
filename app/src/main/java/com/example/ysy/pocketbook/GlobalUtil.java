@@ -8,6 +8,7 @@ public class GlobalUtil {
     private static String TAG = "GlobalUtil";
     private static GlobalUtil instance;
     public RecordDatabaseHelper databaseHelper;
+    public MainActivity mainActivity;
     private Context context;
     public LinkedList<CategoryResBean> costRes = new LinkedList<>();
     public LinkedList<CategoryResBean> earnRes = new LinkedList<>();

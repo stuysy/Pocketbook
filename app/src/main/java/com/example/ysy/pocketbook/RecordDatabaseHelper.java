@@ -63,7 +63,7 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper {
         addRecord(record);
     }
 
-    //用一个链表储存数据，来查询每天的数据
+    //用一个链表储存日期的数组，来查询每天的数据
     public LinkedList<Record> readRecords(String dateStr){
         LinkedList<Record> records = new LinkedList<>();
         SQLiteDatabase db = this.getWritableDatabase();

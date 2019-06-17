@@ -1,7 +1,7 @@
 package com.example.ysy.pocketbook;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.text.BreakIterator;
 
 public class AddRecordActivity extends AppCompatActivity implements View.OnClickListener,CategoryRecyclerAdapter.OnCategoryClickListener {
     private static String TAG = "AddRecordActivity";
@@ -25,6 +23,10 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
     private String category = "General";
     private Record.RecordType type = Record.RecordType.RECORD_TYPE_EXPENSE;
     private String remark = category;
+
+    Record record = new Record();
+
+    private boolean inEdit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,12 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
         adapter.notifyDataSetChanged();
 
         adapter.setOnCategoryClickListener(this);
+
+        Record record = (Record) getIntent().getSerializableExtra("record");
+        if (record != null) {
+            inEdit = true;
+            this.record = record;
+        }
 
 
     }
@@ -114,7 +122,7 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
                 if (!userInput.equals("")){
                     double amount = Double.valueOf(userInput);
 
-                    Record record = new Record();
+
                     record.setAmount(amount);
                     if (type == Record.RecordType.RECORD_TYPE_EXPENSE){
                         record.setType(1);
@@ -123,7 +131,12 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
                     }
                     record.setCategory(adapter.getSelected());
                     record.setRemark(editText.getText().toString());
-                    GlobalUtil.getInstance().databaseHelper.addRecord(record);
+
+                    if (inEdit){
+                        GlobalUtil.getInstance().databaseHelper.editRecord(record.getUuid(),record);
+                    }else {
+                        GlobalUtil.getInstance().databaseHelper.addRecord(record);
+                    }
                     finish();
 
                 }else {

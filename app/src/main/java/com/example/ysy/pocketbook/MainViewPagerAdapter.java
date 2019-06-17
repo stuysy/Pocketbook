@@ -18,11 +18,22 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
     private void initFragment(){
         dates = GlobalUtil.getInstance().databaseHelper.getAvaliableDate();
 
+        if(!dates.contains(DateUtil.getFormattedDate())){
+            dates.addLast(DateUtil.getFormattedDate());
+        }
+
         for(String date:dates){
             MainFragment fragment = new MainFragment(date);
             fragments.add(fragment);
         }
     }
+
+    public void reload(){//退出时执行刷新
+            for (MainFragment fragment:fragments){
+                fragment.reload();
+            }
+        }
+
 
     public int getLastIndex(){
         return fragments.size() - 1;
@@ -38,4 +49,14 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return fragments.size();
     }
+
+    public String getDateStr(int index){
+        return dates.get(index);
+    }
+
+    public double getTotalCost(int i){
+        return fragments.get(i).getTotalCost();
+    }
+
+
 }
