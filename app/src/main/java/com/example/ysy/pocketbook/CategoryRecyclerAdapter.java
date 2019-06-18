@@ -15,7 +15,7 @@ import java.util.LinkedList;
 public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHolder>{
     private LayoutInflater layoutInflater;
     public Context context;
-    private LinkedList<CategoryResBean> cellList = GlobalUtil.getInstance().costRes;
+    private LinkedList<CategoryResBean> cellList = GlobalUtil.getInstance().incRes;
 
     public String getSelected() {
         return selected;
@@ -23,17 +23,18 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHo
 
     private String selected = "";
 
+    public CategoryRecyclerAdapter(Context context){
+        GlobalUtil.getInstance().setContext(context);
+        this.context = context;
+        layoutInflater = LayoutInflater.from(context);
+        selected = cellList.get(0).title;
+    }
+
     public void setOnCategoryClickListener(CategoryRecyclerAdapter.OnCategoryClickListener onCategoryClickListener) {
         this.onCategoryClickListener = onCategoryClickListener;
     }
 
     private OnCategoryClickListener onCategoryClickListener;
-
-    public CategoryRecyclerAdapter(Context context){
-        this.context = context;
-        layoutInflater = LayoutInflater.from(context);
-        selected = cellList.get(0).title;
-    }
 
     @NonNull
     @Override
@@ -70,10 +71,10 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHo
     }
 
     public void changeType(Record.RecordType type){
-        if (type == Record.RecordType.RECORD_TYPE_EXPENSE){
-            cellList = GlobalUtil.getInstance().costRes;
+        if (type == Record.RecordType.RECORD_TYPE_INCREASE){
+            cellList = GlobalUtil.getInstance().incRes;
         }else {
-            cellList = GlobalUtil.getInstance().earnRes;
+            cellList = GlobalUtil.getInstance().decRes;
         }
         selected = cellList.get(0).title;
         notifyDataSetChanged();
