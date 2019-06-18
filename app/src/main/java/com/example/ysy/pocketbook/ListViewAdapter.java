@@ -50,6 +50,7 @@ public class ListViewAdapter extends BaseAdapter {
 
         if(convertView == null){
             convertView = inflater.inflate(R.layout.cell_list_view,null);
+
             Record record = (Record) getItem(position);
             holder = new ViewHolder(convertView,record);
 
