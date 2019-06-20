@@ -12,7 +12,7 @@
             android:paddingLeft="15dp"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:background="#5e5e5e"
+            android:background="#5e5e7e"
             android:text="JUNE 22"
             android:textStyle="bold"
             android:textColor="@android:color/white"

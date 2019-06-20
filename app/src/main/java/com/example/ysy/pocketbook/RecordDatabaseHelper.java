@@ -11,15 +11,15 @@ import java.util.LinkedList;
 
 public class RecordDatabaseHelper extends SQLiteOpenHelper {
     private static String TAG = "RecordDatabaseHelper";
-    public static String DB_NAME = "Record";
+    public static final String DB_NAME = "Record";//数据库名称
     //用sql语句创建数据库的表
     private static final String CREATE_RECORD_DB = "create table Record ("
-            + "id integer primary key autoincrement, "
-            + "uuid text, "
-            + "type integer, "
+            + "id integer primary key autoincrement, " //ID主键，自增
+            + "uuid text, " //
+            + "type integer, " // 1是提升，2是降低
             + "category text, "
             + "remark text, "
-            + "amount double, "
+            + "score integer, "
             + "time integer, "
             + "date date )";
 
@@ -29,14 +29,15 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_RECORD_DB);
+        db.execSQL(CREATE_RECORD_DB);//建立数据库
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {//i i1是版本号，用于更新升级
 
     }
 
+    //增加记录
     public void addRecord(Record bean){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -44,19 +45,21 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper {
         values.put("type",bean.getType());
         values.put("category",bean.getCategory());
         values.put("remark",bean.getRemark());
-        values.put("amount",bean.getAmount());
+        values.put("score",bean.getScore());
         values.put("date",bean.getDate());
         values.put("time",bean.getTimeStamp());
         db.insert(DB_NAME,null,values);
         values.clear();
-        Log.d(TAG,bean.getUuid()+"added");
+        Log.i(TAG,bean.getUuid()+"added");
     }
 
+    //删除记录
     public void  removeRecord(String uuid){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(DB_NAME,"uuid = ?",new String[]{uuid});
     }
 
+    //编辑记录
     public void editRecord(String uuid,Record record){
         removeRecord(uuid);
         record.setUuid(uuid);
@@ -66,7 +69,8 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper {
     //用一个链表储存日期的数组，来查询每天的数据
     public LinkedList<Record> readRecords(String dateStr){
         LinkedList<Record> records = new LinkedList<>();
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();//获取当前数据库
+        //实例化一个cursor，用于承接返回数据
         Cursor cursor = db.rawQuery("select DISTINCT * from Record where date = ? order by time asc",new String[]{dateStr});
         if (cursor.moveToFirst()){
             do{
@@ -74,16 +78,16 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper {
                 int type = cursor.getInt(cursor.getColumnIndex("type"));
                 String category = cursor.getString(cursor.getColumnIndex("category"));
                 String remark = cursor.getString(cursor.getColumnIndex("remark"));
-                double amount = cursor.getDouble(cursor.getColumnIndex("amount"));
+                int score = cursor.getInt(cursor.getColumnIndex("amount"));
                 String date = cursor.getString(cursor.getColumnIndex("date"));
                 long timeStamp = cursor.getLong(cursor.getColumnIndex("time"));
 
-                Record record = new Record();
+                Record record = new Record();//实例化一个Record，接收返回数据
                 record.setUuid(uuid);
                 record.setType(type);
                 record.setCategory(category);
                 record.setRemark(remark);
-                record.setAmount(amount);
+                record.setScore(score);
                 record.setDate(date);
                 record.setTimeStamp(timeStamp);
 
@@ -98,13 +102,13 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper {
     //返回一个包含所有日期的列表
     public LinkedList<String> getAvaliableDate(){
         LinkedList<String> dates = new LinkedList<>();
-
         SQLiteDatabase db = this.getWritableDatabase();
+        //请求所有的记录
         Cursor cursor = db.rawQuery("select DISTINCT * from Record order by date asc",new String[]{});
         if (cursor.moveToFirst()){
             do{
                 String date = cursor.getString(cursor.getColumnIndex("date"));
-                if (!dates.contains(date)){//如果不包含这个日期则添加
+                if (!dates.contains(date)){//如果不包含这个日期,则添加它
                     dates.add(date);
                 }
             }while (cursor.moveToNext());

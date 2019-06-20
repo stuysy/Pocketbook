@@ -114,9 +114,8 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="."
-                        android:background="@android:color/white"
-                        android:id="@+id/keyboard_dot"/>
+                        android:text=""
+                        android:background="@android:color/white"/>
                 </TableRow>
 
             </TableLayout>
@@ -166,12 +165,12 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView_amount"
-            android:gravity="center"
-            android:text="0.00"
-            android:textSize="60dp"
+            android:id="@+id/textView_score"
             android:layout_width="match_parent"
-            android:layout_height="80dp" />
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="60dp" />
 
         <EditText
             android:id="@+id/editText"
@@ -182,7 +181,7 @@
             android:text="Book"
             android:layout_margin="10dp"
             android:background="@drawable/bg_edit_text"
-            android:layout_below="@+id/textView_amount"
+            android:layout_below="@+id/textView_score"
             android:layout_width="match_parent"
             android:layout_height="50dp" />
 

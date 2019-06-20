@@ -9,25 +9,40 @@ public class Record implements Serializable {
     public static String TAG = "Record";
 
     public enum RecordType{
-        RECORD_TYPE_EXPENSE,RECORD_TYPE_INCOME
+        RECORD_TYPE_INCREASE,RECORD_TYPE_DECREASE//提升和降低
     }
 
-    private double amount;
-    private RecordType type;
-    private String category;//消费类型
-    private String remark;
+    private int score;//打分
+    private RecordType type;//提升或降低
+    private String category;//具体项目类别：学习、技能....
+
+    private String remark;//备注
     private String date;//2019-06-10
 
-    public double getAmount() {
-        return amount;
+    private long timeStamp;//时间戳
+    private String uuid;//每个事件都有一个唯一的id
+
+
+    public Record(){
+        uuid = UUID.randomUUID().toString();
+        Log.i(TAG, "Record: uuid =");
+        timeStamp = System.currentTimeMillis();//返回1970年到现在的微秒
+        Log.i(TAG, "Record: timeStamp = "+DateUtil.getFormattedTime(timeStamp));
+        date = DateUtil.getFormattedDate();
+        Log.i(TAG, date+" "+DateUtil.getFormattedTime(timeStamp));
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+
+    public int getScore() {
+        return score;
     }
 
-    public int getType() {
-        if(this.type == RecordType.RECORD_TYPE_EXPENSE){
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getType() {//本来是枚举类，但是数据库不支持，所以改成int类型
+        if (this.type == RecordType.RECORD_TYPE_INCREASE){
             return 1;
         }else {
             return 2;
@@ -35,12 +50,12 @@ public class Record implements Serializable {
     }
 
     public void setType(int type) {
-        if(type == 1){
-            this.type = RecordType.RECORD_TYPE_EXPENSE;
-        }else {
-            this.type = RecordType.RECORD_TYPE_INCOME;
+        if (type == 1){
+            this.type = RecordType.RECORD_TYPE_INCREASE;
         }
-
+        else {
+            this.type = RecordType.RECORD_TYPE_DECREASE;
+        }
     }
 
     public String getCategory() {
@@ -83,15 +98,8 @@ public class Record implements Serializable {
         this.uuid = uuid;
     }
 
-    private long timeStamp;//时间戳
-    private String uuid;//每笔账目都有一个唯一的id
 
-    public Record(){
-        uuid = UUID.randomUUID().toString();
-        Log.i(TAG, "Record: uuid =");
-        timeStamp = System.currentTimeMillis();//返回1970年到现在的微秒
-        Log.i(TAG, "Record: timeStamp = "+DateUtil.getFormattedTime(timeStamp));
-        date = DateUtil.getFormattedDate();
-        Log.i(TAG, date+" "+DateUtil.getFormattedTime(timeStamp));
-    }
+
+
+
 }

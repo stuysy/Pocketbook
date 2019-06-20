@@ -24,7 +24,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemLongClic
     private static String TAG = "MainFragment";
     private TextView textView;
     private ListView listView;
-    private View rootView;
+    private View rootView;//根示图，用于寻找TextView、ListView
     private ListViewAdapter listViewAdapter;
     private LinkedList<Record> records = new LinkedList<>();
     private String date = "";
@@ -39,6 +39,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemLongClic
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main,container,false);
+        initView();
         return rootView;
     }
 
@@ -61,24 +62,24 @@ public class MainFragment extends Fragment implements AdapterView.OnItemLongClic
         listView = (ListView) rootView.findViewById(R.id.listView);
         textView.setText(date);
         listViewAdapter = new ListViewAdapter(getContext());
-        reload();
-        /*listViewAdapter.setData(records);
+        listViewAdapter.setData(records);
         listView.setAdapter(listViewAdapter);
 
-        if(listViewAdapter.getCount()>0){
+        if(listViewAdapter.getCount()>0){//如果有记录则隐藏提示
             rootView.findViewById(R.id.no_record_layout).setVisibility(View.INVISIBLE);
-        }*/
-
-        listView.setOnItemLongClickListener(this);
+        }
 
         textView.setText(DateUtil.getDateTitle(date));
+        listView.setOnItemLongClickListener(this);
+
+
     }
 
     public double getTotalCost(){
         double totalCost = 0;
         for (Record record:records){
             if (record.getType() == 1){
-                totalCost += record.getAmount();
+                totalCost += record.getScore();
             }
         }
         return totalCost;
@@ -87,6 +88,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemLongClic
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         Log.i(TAG, "Index " + position + "clicked");
+        showDialog(position);
         return false;
     }
 

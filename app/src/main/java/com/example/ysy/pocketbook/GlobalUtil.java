@@ -3,17 +3,17 @@ package com.example.ysy.pocketbook;
 import android.content.Context;
 
 import java.util.LinkedList;
-//全局资源类
+//全局资源类,单例模式
 public class GlobalUtil {
     private static String TAG = "GlobalUtil";
     private static GlobalUtil instance;
     public RecordDatabaseHelper databaseHelper;
     public MainActivity mainActivity;
     private Context context;
-    public LinkedList<CategoryResBean> costRes = new LinkedList<>();
-    public LinkedList<CategoryResBean> earnRes = new LinkedList<>();
+    public LinkedList<CategoryResBean> incRes = new LinkedList<>();
+    public LinkedList<CategoryResBean> decRes = new LinkedList<>();
 
-    private static int [] costIconRes = {
+    private static int [] incIconRes = {
             R.drawable.general_white,
             R.drawable.food_white,
             R.drawable.shopping_white,
@@ -27,7 +27,7 @@ public class GlobalUtil {
             R.drawable.medical_white,
             R.drawable.transfer_white
     };
-    private static int [] costIconResBlack = {
+    private static int [] decIconResBlack = {
             R.drawable.general,
             R.drawable.food,
             R.drawable.shopping,
@@ -41,22 +41,23 @@ public class GlobalUtil {
             R.drawable.medical,
             R.drawable.transfer
     };
-    private static String[] costTitle = {"General", "Food", "Shopping", "Entertain", "Transport",
+    private static String[] incTitle = {"General", "Food", "Shopping", "Entertain", "Transport",
             "Mobile","Gifts", "Housing", "Travel","Books", "Medical","Transfer"};
 
-    private static int[] earnIconRes = {
+    private static int[] decIconRes = {
             R.drawable.general_white,
             R.drawable.salary_white,
             R.drawable.redpocket_white,
             R.drawable.extra_white};
 
-    private static int[] earnIconResBlack = {
+    private static int[] incIconResBlack = {
             R.drawable.general,
             R.drawable.salary,
             R.drawable.redpocket,
             R.drawable.extra};
 
-    private static String[] earnTitle = {"General",  "Salary","RedPocket","Extra"};
+
+    private static String[] decTitle = {"General",  "Salary","RedPocket","Extra"};
 
 
     public Context getContext(){
@@ -66,43 +67,43 @@ public class GlobalUtil {
         this.context = context;
         databaseHelper = new RecordDatabaseHelper(context, RecordDatabaseHelper.DB_NAME, null, 1);
 
-        for (int i = 0; i < costTitle.length; i++) {
+        for (int i = 0; i < incTitle.length; i++) {
             CategoryResBean res = new CategoryResBean();
-            res.title = costTitle[i];
-            res.resBlack = costIconResBlack[i];
-            res.resWhite = costIconRes[i];
-            costRes.add(res);
+            res.title = incTitle[i];
+            res.resBlack = decIconResBlack[i];
+            res.resWhite = incIconRes[i];
+            incRes.add(res);
         }
 
-        for (int i = 0; i < earnTitle.length; i++) {
+        for (int i = 0; i < decTitle.length; i++) {
             CategoryResBean res = new CategoryResBean();
-            res.title = earnTitle[i];
-            res.resBlack = earnIconResBlack[i];
-            res.resWhite = earnIconRes[i];
-            earnRes.add(res);
+            res.title = decTitle[i];
+            res.resBlack = incIconResBlack[i];
+            res.resWhite = decIconRes[i];
+            decRes.add(res);
         }
     }
 
     //实现创建一次数据库连接，不用重复创建
     public static GlobalUtil getInstance(){
-        if (instance == null){
+        if (instance == null){//如果为空，则创建，否则返回最初创建的那个单例
             instance = new GlobalUtil();
             }
             return instance;
     }
 
     public int getResourceIcon(String category){
-        for (CategoryResBean res:costRes){
+        for (CategoryResBean res:incRes){
             if (res.title.equals(category)){
                 return res.resWhite;
             }
         }
-        for (CategoryResBean res:earnRes){
+        for (CategoryResBean res:decRes){
             if (res.title.equals(category)){
                 return res.resWhite;
             }
         }
-        return costRes.get(0).resWhite;
+        return incRes.get(0).resWhite;
     }
 
 

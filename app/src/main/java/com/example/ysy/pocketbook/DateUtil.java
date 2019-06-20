@@ -9,7 +9,7 @@ public class DateUtil {
     //将unix时间转化为可读的
     public static String getFormattedTime(long timeStamp){
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
-        return formatter.format(new Date(timeStamp));
+        return formatter.format(new Date(timeStamp));//返回格式化时间
     }
     //转化为2019-06-10
     public static String getFormattedDate(){

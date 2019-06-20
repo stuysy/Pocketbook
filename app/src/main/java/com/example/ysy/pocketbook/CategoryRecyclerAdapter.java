@@ -53,6 +53,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHo
         categoryViewHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //每被点击一下就更新一下RecyclerView的值
                 selected = res.title;
                 notifyDataSetChanged();
 
@@ -85,6 +86,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHo
         return cellList.size();
     }
 
+    //为CategoryRecyclerAdapter adapter编写一个接口
     public interface OnCategoryClickListener{
         void onClick(String category);
     }

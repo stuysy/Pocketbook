@@ -11,17 +11,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 public class AddRecordActivity extends AppCompatActivity implements View.OnClickListener,CategoryRecyclerAdapter.OnCategoryClickListener {
     private static String TAG = "AddRecordActivity";
     private String userInput = "";
-    private TextView amountText;
+    private TextView scoreText;
     private EditText editText;
 
     private RecyclerView recyclerView;
     private CategoryRecyclerAdapter adapter;
 
-    private String category = "General";
-    private Record.RecordType type = Record.RecordType.RECORD_TYPE_EXPENSE;
+    private String category = "Read";
+    private Record.RecordType type = Record.RecordType.RECORD_TYPE_INCREASE;
     private String remark = category;
 
     Record record = new Record();
@@ -44,19 +46,20 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
         findViewById(R.id.keyboard_nine).setOnClickListener(this);
         findViewById(R.id.keyboard_zero).setOnClickListener(this);
 
-        handleBackspace();
-        handleDone();
-        handleDot();
-        handleTypeChange();
+        //getSupportActionBar().setElevation(0);
 
-        amountText = (TextView) findViewById(R.id.textView_amount);
+        scoreText = (TextView) findViewById(R.id.textView_score);
         editText = findViewById(R.id.editText);
         editText.setText(remark);
 
+        handleBackspace();
+        handleDone();
+        handleTypeChange();
+
         recyclerView = findViewById(R.id.recyclerView);
-        adapter = new CategoryRecyclerAdapter(getApplicationContext());
+        adapter = new CategoryRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),4);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);//一行3个
         recyclerView.setLayoutManager(gridLayoutManager);
         adapter.notifyDataSetChanged();
 
@@ -71,27 +74,28 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    private void handleDot(){
+    /*private void handleDot(){
         findViewById(R.id.keyboard_dot).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, ". clicked");
 
-                if (userInput.contains(".")){
+                if (!userInput.contains(".")){
                     userInput += ".";
                 }
             }
         });
-    }
+    }*/
 
+    //处理两种类别转换按键的方法
     private void handleTypeChange(){
         findViewById(R.id.keyboard_type).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (type == Record.RecordType.RECORD_TYPE_EXPENSE){
-                    type = Record.RecordType.RECORD_TYPE_INCOME;
+                if (type == Record.RecordType.RECORD_TYPE_INCREASE){
+                    type = Record.RecordType.RECORD_TYPE_DECREASE;
                 }else {
-                    type = Record.RecordType.RECORD_TYPE_EXPENSE;
+                    type = Record.RecordType.RECORD_TYPE_INCREASE;
                 }
                 adapter.changeType(type);
                 category = adapter.getSelected();
@@ -99,6 +103,7 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
+    //处理退格按键
     private void handleBackspace(){
         findViewById(R.id.keyboard_backspace).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,30 +111,26 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
                 if (userInput.length() > 0) {
                     userInput = userInput.substring(0, userInput.length() - 1);
                 }
-                if (userInput.length() > 0 && userInput.charAt(userInput.length() - 1) == '.') {
-                    userInput = userInput.substring(0, userInput.length() - 1);
-                }
                 updateAmountText();
-
             }
         });
     }
 
+    //处理完成按键
     private void handleDone(){
         findViewById(R.id.keyboard_done).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!userInput.equals("")){
-                    double amount = Double.valueOf(userInput);
+                    int score = Integer.valueOf(userInput);
 
-
-                    record.setAmount(amount);
-                    if (type == Record.RecordType.RECORD_TYPE_EXPENSE){
+                    record.setScore(score);
+                    if (type == Record.RecordType.RECORD_TYPE_INCREASE){
                         record.setType(1);
                     }else {
                         record.setType(2);
                     }
-                    record.setCategory(adapter.getSelected());
+                    record.setCategory(adapter.getSelected());//得到category
                     record.setRemark(editText.getText().toString());
 
                     if (inEdit){
@@ -140,7 +141,7 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
                     finish();
 
                 }else {
-                    Toast.makeText(getApplicationContext(),"请输入金额！",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"输入内容不能为空！",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -151,32 +152,19 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
         Button button = (Button) v;
         String input = button.getText().toString();
         Log.i(TAG, input);
-        if (userInput.contains(".")) {
-            if (userInput.split("\\.").length == 1 || userInput.split("\\.")[1].length() < 2) {
-                userInput += input;
-            }
-        } else {
-            userInput += input;
+        userInput += input;
+        updateAmountText();
+    }
+
+    //更新TextView的方法
+    private void updateAmountText() {
+        if (userInput.equals("")) {
+            scoreText.setText("00");
+        }else {
+            scoreText.setText(userInput);
         }
     }
 
-    private void updateAmountText() {
-        if (userInput.contains(".")) {
-            if (userInput.split("\\.").length == 1) {
-                amountText.setText(userInput + "00");
-            } else if (userInput.split("\\.")[1].length() == 1) {
-                amountText.setText(userInput + "0");
-            } else if (userInput.split("\\.")[1].length() == 2) {
-                amountText.setText(userInput);
-            }
-        } else {
-            if (userInput.equals("")) {
-                amountText.setText("0.00");
-            } else {
-                amountText.setText(userInput + ".00");
-            }
-        }
-    }
 
     @Override
     public void onClick(String category) {

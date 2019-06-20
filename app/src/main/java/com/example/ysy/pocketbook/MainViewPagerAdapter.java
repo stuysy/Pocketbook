@@ -10,12 +10,14 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     LinkedList<MainFragment> fragments = new LinkedList<>();
     LinkedList<String> dates = new LinkedList<>();
+
     public MainViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        initFragment();
+        initFragments();
     }
 
-    private void initFragment(){
+    //初始化所有的Fragment
+    private void initFragments(){
         dates = GlobalUtil.getInstance().databaseHelper.getAvaliableDate();
 
         if(!dates.contains(DateUtil.getFormattedDate())){

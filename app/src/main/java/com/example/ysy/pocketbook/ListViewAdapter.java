@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import java.util.LinkedList;
 
-import static com.example.ysy.pocketbook.R.layout.cell_list_view;
-
 public class ListViewAdapter extends BaseAdapter {
 
     private LinkedList<Record> records = new LinkedList<>();
@@ -21,7 +19,7 @@ public class ListViewAdapter extends BaseAdapter {
 
     public ListViewAdapter(Context context){
         this.context = context;
-        inflater = LayoutInflater.from(context);
+        inflater = LayoutInflater.from(context);//从上下文初始化
     }
 
     public void setData(LinkedList<Record> records){
@@ -58,29 +56,28 @@ public class ListViewAdapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-
         return convertView;
     }
 }
 
 class ViewHolder{
     TextView remarkTV;
-    TextView amountTV;
+    TextView scoreTV;
     TextView timeTV;
     ImageView categoryIcon;
 
     public ViewHolder(View itemView, Record record){
         remarkTV = itemView.findViewById(R.id.textView_remark);
-        amountTV = itemView.findViewById(R.id.textView_amount);
+        scoreTV = itemView.findViewById(R.id.textView_score);
         timeTV = itemView.findViewById(R.id.textView_time);
         categoryIcon = itemView.findViewById(R.id.imageView_category);
 
         remarkTV.setText(record.getRemark());
 
         if (record.getType() == 1){
-            amountTV.setText("- "+ record.getAmount());
+            scoreTV.setText("- "+ record.getScore());
         } else {
-            amountTV.setText("+ "+ record.getAmount());
+            scoreTV.setText("+ "+ record.getScore());
         }
 
         timeTV.setText(DateUtil.getFormattedTime(record.getTimeStamp()));

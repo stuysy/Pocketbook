@@ -12,12 +12,12 @@ import android.widget.TextView;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 
-public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG ="MainActivity";
     private TickerView amountText;
     private ViewPager viewPager;
-    private MainViewPagerAdapter mainViewPagerAdapter;
+    private MainViewPagerAdapter pagerAdapter;
     private TextView dateText;
     private int currentPagePosition = 0;
 
@@ -25,37 +25,38 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        GlobalUtil.getInstance().setContext(getApplicationContext());
-        GlobalUtil.getInstance().mainActivity = this;
+
+        //GlobalUtil.getInstance().setContext(getApplicationContext());
+        //GlobalUtil.getInstance().mainActivity = this;
         getSupportActionBar().setElevation(0);
 
-        amountText = findViewById(R.id.amount_text);
-        amountText.setCharacterLists(TickerUtils.provideNumberList());
-        dateText = findViewById(R.id.day_text);
+        //amountText = findViewById(R.id.score_text);
+        //amountText.setCharacterLists(TickerUtils.provideNumberList());
+        //dateText = findViewById(R.id.day_text);
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
-        mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
-        mainViewPagerAdapter.notifyDataSetChanged();
-        viewPager.setAdapter(mainViewPagerAdapter);
-        viewPager.setOnPageChangeListener(this);
-        viewPager.setCurrentItem(mainViewPagerAdapter.getLastIndex());
+        pagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
+        pagerAdapter.notifyDataSetChanged();
+        viewPager.setAdapter(pagerAdapter);
+        //viewPager.setOnPageChangeListener(this);
+        viewPager.setCurrentItem(pagerAdapter.getLastIndex());
 
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,AddRecordActivity.class);
-                startActivityForResult(intent,1);//关闭页面的时候刷新一次
+                startActivity(intent);
+                //startActivityForResult(intent,1);//关闭此页面的时候刷新一次
             }
         });
-
-
-
+        //updateHeader();
     }
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.i(TAG, "onActivityResult:");
+        pagerAdapter.reload();
         updateHeader();
 
     }
@@ -68,21 +69,21 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Override
     public void onPageSelected(int i) {
         Log.i(TAG, "onPageSelected: position = "+ i);
-        Log.i(TAG, "COAT: " + mainViewPagerAdapter.getTotalCost(i));
+        Log.i(TAG, "COAT: " + pagerAdapter.getTotalCost(i));
 
         currentPagePosition = i;
         updateHeader();
     }
 
     public void updateHeader(){
-        String amount = String.valueOf(mainViewPagerAdapter.getTotalCost(currentPagePosition));
+        String amount = String.valueOf(pagerAdapter.getTotalCost(currentPagePosition));
         amountText.setText(amount);
-        String date = mainViewPagerAdapter.getDateStr(currentPagePosition);
+        String date = pagerAdapter.getDateStr(currentPagePosition);
         dateText.setText(DateUtil.getWeekDay(date));
     }
 
     @Override
     public void onPageScrollStateChanged(int i) {
 
-    }
+    }*/
 }

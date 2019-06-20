@@ -13,21 +13,21 @@
         app:elevation="0dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="120dp">
+        android:layout_height="140dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <RelativeLayout
-                android:id="@+id/amount_layout"
+                android:id="@+id/score_layout"
                 android:layout_width="match_parent"
-                android:layout_height="80dp">
+                android:layout_height="90dp">
 
                 <com.robinhood.ticker.TickerView
                     android:paddingTop="10dp"
                     android:layout_centerHorizontal="true"
-                    android:id="@+id/amount_text"
+                    android:id="@+id/score_text"
                     android:textSize="60dp"
                     android:textColor="@android:color/white"
                     android:layout_width="wrap_content"
@@ -36,11 +36,11 @@
                 <TextView
                     android:textColor="@android:color/white"
                     android:textSize="60dp"
-                    android:layout_toEndOf="@+id/amount_text"
-                    android:layout_toRightOf="@+id/amount_text"
-                    android:layout_alignTop="@+id/amount_text"
+                    android:layout_toEndOf="@+id/score_text"
+                    android:layout_toRightOf="@+id/score_text"
+                    android:layout_alignTop="@+id/score_text"
                     android:id="@+id/currency_text"
-                    android:text="￥"
+                    android:text="分"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -50,7 +50,7 @@
                 android:id="@+id/date_text"
                 android:textStyle="bold"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/amount_layout"
+                android:layout_below="@+id/score_layout"
                 android:text="JUNE 22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
