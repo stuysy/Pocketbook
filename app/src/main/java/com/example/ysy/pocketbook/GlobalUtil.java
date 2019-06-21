@@ -93,7 +93,7 @@ public class GlobalUtil {
     }
 
     public int getResourceIcon(String category){
-        for (CategoryResBean res:incRes){
+        for (CategoryResBean res:incRes){//遍历incRes
             if (res.title.equals(category)){
                 return res.resWhite;
             }

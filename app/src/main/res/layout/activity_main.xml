@@ -47,14 +47,14 @@
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/date_text"
-                android:textStyle="bold"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/score_layout"
-                android:text="JUNE 22"
+                android:id="@+id/day_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:layout_below="@+id/score_layout"
+                android:layout_centerHorizontal="true"
+                android:text="JUNE 22"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 

@@ -21,16 +21,16 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
         dates = GlobalUtil.getInstance().databaseHelper.getAvaliableDate();
 
         if(!dates.contains(DateUtil.getFormattedDate())){
-            dates.addLast(DateUtil.getFormattedDate());
+            dates.addLast(DateUtil.getFormattedDate());//新的一天第一次打开时，创建一个日期在链表末尾
         }
 
         for(String date:dates){
-            MainFragment fragment = new MainFragment(date);
+            MainFragment fragment = new MainFragment(date);//用dates初始化fragment
             fragments.add(fragment);
         }
     }
 
-    public void reload(){//退出时执行刷新
+    public void reload(){//每添加一条记录返回主页面时时执行刷新
             for (MainFragment fragment:fragments){
                 fragment.reload();
             }
@@ -56,9 +56,8 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
         return dates.get(index);
     }
 
-    public double getTotalCost(int i){
-        return fragments.get(i).getTotalCost();
+    public int getTotalScore(int i){
+        return fragments.get(i).getTotalScore();
     }
-
 
 }

@@ -70,19 +70,19 @@ public class MainFragment extends Fragment implements AdapterView.OnItemLongClic
         }
 
         textView.setText(DateUtil.getDateTitle(date));
-        listView.setOnItemLongClickListener(this);
+        listView.setOnItemLongClickListener(this);//某一项的长按监听器
 
 
     }
 
-    public double getTotalCost(){
-        double totalCost = 0;
+    public int getTotalScore(){
+        int totalScore = 0;
         for (Record record:records){
             if (record.getType() == 1){
-                totalCost += record.getScore();
+                totalScore += record.getScore();
             }
         }
-        return totalCost;
+        return totalScore;
     }
 
     @Override
@@ -92,7 +92,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemLongClic
         return false;
     }
 
-    private void showDialog(int index){
+    private void showDialog(final int index){
         final String[] options={"Remove","Edit"};
 
         final Record selectedRecord = records.get(index);
@@ -111,12 +111,13 @@ public class MainFragment extends Fragment implements AdapterView.OnItemLongClic
                 }else if (which==1){
                     Intent intent = new Intent(getActivity(),AddRecordActivity.class);
                     Bundle extra = new Bundle();
-                    extra.putSerializable("record",selectedRecord);
+                    extra.putSerializable("record",selectedRecord);//这是一个序列化对象，Record不支持序列化对象，需要在Record中介入一个接口Serializable
                     intent.putExtras(extra);
                     startActivityForResult(intent,1);
                 }
             }
         });
+        builder.setNegativeButton("Cancel",null);
         builder.create().show();
     }
 }

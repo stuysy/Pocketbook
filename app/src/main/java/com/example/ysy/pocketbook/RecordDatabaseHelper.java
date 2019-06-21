@@ -69,6 +69,7 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper {
     //用一个链表储存日期的数组，来查询每天的数据
     public LinkedList<Record> readRecords(String dateStr){
         LinkedList<Record> records = new LinkedList<>();
+
         SQLiteDatabase db = this.getWritableDatabase();//获取当前数据库
         //实例化一个cursor，用于承接返回数据
         Cursor cursor = db.rawQuery("select DISTINCT * from Record where date = ? order by time asc",new String[]{dateStr});

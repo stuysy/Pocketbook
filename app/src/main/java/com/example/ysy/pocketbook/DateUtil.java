@@ -30,7 +30,7 @@ public class DateUtil {
 
     //返回星期几
     public static String getWeekDay(String date){
-        String[] weekdays = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
+        String[] weekdays = {"星期天","星期一","星期二","星期三","星期四","星期五","星期六"};
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(strToDate(date));
         int index = calendar.get(Calendar.DAY_OF_WEEK)-1;
