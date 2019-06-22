@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="220dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal">
         <RelativeLayout
             android:layout_weight="0.25"
             android:layout_width="match_parent"
@@ -162,7 +164,8 @@
     <RelativeLayout
         android:layout_above="@+id/linear"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
 
         <TextView
             android:id="@+id/textView_score"
@@ -174,24 +177,31 @@
 
         <EditText
             android:id="@+id/editText"
-            android:textColor="@android:color/white"
-            android:paddingLeft="10dp"
-            android:textSize="30dp"
-            android:textStyle="normal"
-            android:text="Book"
-            android:layout_margin="10dp"
-            android:background="@drawable/bg_edit_text"
-            android:layout_below="@+id/textView_score"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:layout_below="@+id/textView_score"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bg_edit_text"
+            android:paddingLeft="10dp"
+            android:text="Book"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="30dp"
+            android:textStyle="normal" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_margin="20dp"
-            android:layout_below="@+id/editText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent"
+            android:layout_below="@+id/editText"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_edit_text"></android.support.v7.widget.RecyclerView>
 
     </RelativeLayout>
 

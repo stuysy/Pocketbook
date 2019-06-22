@@ -27,7 +27,7 @@ public class GlobalUtil {
             R.drawable.medical_white,
             R.drawable.transfer_white
     };
-    private static int [] decIconResBlack = {
+    private static int [] incIconResBlack = {
             R.drawable.general,
             R.drawable.food,
             R.drawable.shopping,
@@ -50,7 +50,7 @@ public class GlobalUtil {
             R.drawable.redpocket_white,
             R.drawable.extra_white};
 
-    private static int[] incIconResBlack = {
+    private static int[] decIconResBlack = {
             R.drawable.general,
             R.drawable.salary,
             R.drawable.redpocket,

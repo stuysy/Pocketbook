@@ -102,7 +102,7 @@ class CategoryViewHolder extends RecyclerView.ViewHolder{
         super(itemView);
 
         background = itemView.findViewById(R.id.cell_background);
-        itemView = imageView.findViewById(R.id.pic);
+        imageView = itemView.findViewById(R.id.pic);
         textView = itemView.findViewById(R.id.txt);
     }
 }

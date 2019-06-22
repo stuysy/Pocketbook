@@ -79,7 +79,7 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper {
                 int type = cursor.getInt(cursor.getColumnIndex("type"));
                 String category = cursor.getString(cursor.getColumnIndex("category"));
                 String remark = cursor.getString(cursor.getColumnIndex("remark"));
-                int score = cursor.getInt(cursor.getColumnIndex("amount"));
+                int score = cursor.getInt(cursor.getColumnIndex("score"));
                 String date = cursor.getString(cursor.getColumnIndex("date"));
                 long timeStamp = cursor.getLong(cursor.getColumnIndex("time"));
 
@@ -117,5 +117,4 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return dates;
     }
-
 }

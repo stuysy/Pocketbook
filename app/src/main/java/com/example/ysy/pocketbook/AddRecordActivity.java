@@ -26,7 +26,7 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
     private Record.RecordType type = Record.RecordType.RECORD_TYPE_INCREASE;
     private String remark = category;
 
-    Record record = new Record();
+    public Record record = new Record();
 
     private boolean inEdit = false;
 
@@ -73,19 +73,6 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
 
 
     }
-
-    /*private void handleDot(){
-        findViewById(R.id.keyboard_dot).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, ". clicked");
-
-                if (!userInput.contains(".")){
-                    userInput += ".";
-                }
-            }
-        });
-    }*/
 
     //处理两种类别转换按键的方法
     private void handleTypeChange(){
