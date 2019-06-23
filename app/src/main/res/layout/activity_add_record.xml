@@ -132,13 +132,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <ImageButton
                     android:id="@+id/keyboard_type"
-                    android:src="@drawable/icons_cost"
-                    android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"/>
+                    android:layout_weight="2"
+                    android:background="@android:color/white"
+                    android:src="@drawable/change1" />
 
                 <ImageButton
                     android:id="@+id/keyboard_backspace"
@@ -198,9 +199,8 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/editText"
             android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/bg_edit_text"></android.support.v7.widget.RecyclerView>
 
     </RelativeLayout>

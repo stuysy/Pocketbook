@@ -85,4 +85,5 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         String date = pagerAdapter.getDateStr(currentPagePosition);
         dayText.setText(DateUtil.getWeekDay(date));
     }
+
 }

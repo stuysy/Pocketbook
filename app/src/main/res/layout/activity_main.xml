@@ -25,24 +25,24 @@
                 android:layout_height="90dp">
 
                 <com.robinhood.ticker.TickerView
-                    android:paddingTop="10dp"
-                    android:layout_centerHorizontal="true"
                     android:id="@+id/score_text"
-                    android:textSize="60dp"
-                    android:textColor="@android:color/white"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:paddingTop="10dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="60dp" />
 
                 <TextView
-                    android:textColor="@android:color/white"
-                    android:textSize="60dp"
+                    android:id="@+id/currency_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/score_text"
                     android:layout_toEndOf="@+id/score_text"
                     android:layout_toRightOf="@+id/score_text"
-                    android:layout_alignTop="@+id/score_text"
-                    android:id="@+id/currency_text"
                     android:text="分"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textColor="@android:color/white"
+                    android:textSize="60dp" />
 
             </RelativeLayout>
 

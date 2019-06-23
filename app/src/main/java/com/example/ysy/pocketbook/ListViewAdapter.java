@@ -75,9 +75,9 @@ class ViewHolder{
         remarkTV.setText(record.getRemark());
 
         if (record.getType() == 1){
-            scoreTV.setText("- "+ record.getScore());
-        } else {
             scoreTV.setText("+ "+ record.getScore());
+        } else {
+            scoreTV.setText("- "+ record.getScore());
         }
 
         timeTV.setText(DateUtil.getFormattedTime(record.getTimeStamp()));

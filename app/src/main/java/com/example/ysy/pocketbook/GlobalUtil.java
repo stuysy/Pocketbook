@@ -14,50 +14,40 @@ public class GlobalUtil {
     public LinkedList<CategoryResBean> decRes = new LinkedList<>();
 
     private static int [] incIconRes = {
-            R.drawable.general_white,
-            R.drawable.food_white,
-            R.drawable.shopping_white,
-            R.drawable.entertain_white,
-            R.drawable.transport_white,
-            R.drawable.mobile_white,
-            R.drawable.gift_white,
-            R.drawable.housing_white,
-            R.drawable.travel_white,
+            R.drawable.learn_white,
+            R.drawable.skill_white,
             R.drawable.book_white,
-            R.drawable.medical_white,
-            R.drawable.transfer_white
+            R.drawable.yinshi_white,
+            R.drawable.sport_white,
+            R.drawable.social_white,
+            R.drawable.extra_white
     };
     private static int [] incIconResBlack = {
-            R.drawable.general,
-            R.drawable.food,
-            R.drawable.shopping,
-            R.drawable.entertain,
-            R.drawable.transport,
-            R.drawable.mobile,
-            R.drawable.gift,
-            R.drawable.housing,
-            R.drawable.travel,
+            R.drawable.learn,
+            R.drawable.skill,
             R.drawable.book,
-            R.drawable.medical,
-            R.drawable.transfer
+            R.drawable.yinshi,
+            R.drawable.sport,
+            R.drawable.social,
+            R.drawable.extra
     };
-    private static String[] incTitle = {"General", "Food", "Shopping", "Entertain", "Transport",
-            "Mobile","Gifts", "Housing", "Travel","Books", "Medical","Transfer"};
+    private static String[] incTitle = {"专业学习", "技能提升", "课外阅读", "健康饮食",
+            "运动健身","社交", "其他"};
 
     private static int[] decIconRes = {
-            R.drawable.general_white,
-            R.drawable.salary_white,
-            R.drawable.redpocket_white,
-            R.drawable.extra_white};
+            R.drawable.aoye_white,
+            R.drawable.game_white,
+            R.drawable.food2_white,
+            R.drawable.shuijiao_white};
 
     private static int[] decIconResBlack = {
-            R.drawable.general,
-            R.drawable.salary,
-            R.drawable.redpocket,
-            R.drawable.extra};
+            R.drawable.aoye,
+            R.drawable.game,
+            R.drawable.food2,
+            R.drawable.shuijiao};
 
 
-    private static String[] decTitle = {"General",  "Salary","RedPocket","Extra"};
+    private static String[] decTitle = {"熬夜","打游戏", "垃圾食品", "睡懒觉"};
 
 
     public Context getContext(){
@@ -70,7 +60,7 @@ public class GlobalUtil {
         for (int i = 0; i < incTitle.length; i++) {
             CategoryResBean res = new CategoryResBean();
             res.title = incTitle[i];
-            res.resBlack = decIconResBlack[i];
+            res.resBlack = incIconResBlack[i];
             res.resWhite = incIconRes[i];
             incRes.add(res);
         }
@@ -78,7 +68,7 @@ public class GlobalUtil {
         for (int i = 0; i < decTitle.length; i++) {
             CategoryResBean res = new CategoryResBean();
             res.title = decTitle[i];
-            res.resBlack = incIconResBlack[i];
+            res.resBlack = decIconResBlack[i];
             res.resWhite = decIconRes[i];
             decRes.add(res);
         }
@@ -105,6 +95,4 @@ public class GlobalUtil {
         }
         return incRes.get(0).resWhite;
     }
-
-
 }

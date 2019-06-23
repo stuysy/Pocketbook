@@ -59,7 +59,7 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
         recyclerView = findViewById(R.id.recyclerView);
         adapter = new CategoryRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);//一行3个
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);//一行2个
         recyclerView.setLayoutManager(gridLayoutManager);
         adapter.notifyDataSetChanged();
 

@@ -24,7 +24,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHo
     private String selected = "";
 
     public CategoryRecyclerAdapter(Context context){
-        GlobalUtil.getInstance().setContext(context);
+        //GlobalUtil.getInstance().setContext(context);
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
         selected = cellList.get(0).title;

@@ -111,7 +111,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemLongClic
                 }else if (which==1){
                     Intent intent = new Intent(getActivity(),AddRecordActivity.class);
                     Bundle extra = new Bundle();
-                    extra.putSerializable("record",selectedRecord);//这是一个序列化对象，Record不支持序列化对象，需要在Record中介入一个接口Serializable
+                    extra.putSerializable("record",selectedRecord);//这是一个序列化对象，Record不支持序列化对象，需要在Record中接入一个接口Serializable
                     intent.putExtras(extra);
                     startActivityForResult(intent,1);
                 }
